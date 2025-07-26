@@ -39,7 +39,7 @@ public class ChestController : MonoBehaviour
     private void Start()
     {
         // プレイヤーを取得
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player"); //違うやり方で取得してください。
 
         // TextMeshProを取得
         if (textMeshPro == null)
@@ -70,6 +70,8 @@ public class ChestController : MonoBehaviour
 
             Debug.Log("in Range");
 
+            //以下のインプット処理はせっかくInputSystemを使っているので、InputActionを使うべきです。
+            //これじゃ違うプラットフォームで動かないからもったいない
             if (Keyboard.current.fKey.wasPressedThisFrame) // 開ける処理を呼ばれた場合
             {
                 // 開けられる場合
@@ -95,7 +97,7 @@ public class ChestController : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) //enum化した方がいい
         {
             pressFText.enabled = true;
         }

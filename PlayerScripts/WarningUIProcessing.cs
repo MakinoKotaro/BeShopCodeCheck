@@ -5,7 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 /// <summary>
 /// HPが一定以下のときに警告UI（ビネット）を表示するスクリプト
 /// </summary>
-public class WarnigUiProcessing : MonoBehaviour
+public class WarningUIProcessing : MonoBehaviour
 {
     #region 変数宣言
 
@@ -16,23 +16,23 @@ public class WarnigUiProcessing : MonoBehaviour
 
     private float currentValue = 0f;                                   // 現在のスムース値
     private Vignette vignette;                                         // 実際に操作するビネット
-    private bool canShowWarningUi = false;                             // 警告UIを表示できるか
+    private bool canShowWarningUI = false;                             // 警告UIを表示できるか
     private bool isEffectPlaying = false;                              // エフェクト再生中かどうか
 
     #endregion
 
     #region プロパティ
 
-    public bool CanShowWarningUi
+    public bool CanShowWarningUI
     {
-        get => canShowWarningUi;
+        get => canShowWarningUI;
         set
         {
             // 状態を設定
-            canShowWarningUi = value;
+            canShowWarningUI = value;
 
             // 表示不可にされた場合はビネットをリセット
-            if (!canShowWarningUi && vignette != null)
+            if (!canShowWarningUI && vignette != null)
             {
                 ResetVignette();
             }
@@ -78,7 +78,7 @@ public class WarnigUiProcessing : MonoBehaviour
     private void Update()
     {
         // 表示不可 または エフェクト再生中 または vignette未取得なら以下の処理を呼ばない
-        if (canShowWarningUi && !isEffectPlaying && vignette != null)
+        if (canShowWarningUI && !isEffectPlaying && vignette != null)
         {
             // 時間に応じてPingPong値を計算
             float pingPongValue = Mathf.PingPong(Time.time * speed, 1f);
@@ -145,7 +145,7 @@ public class WarnigUiProcessing : MonoBehaviour
     private void ResetVignette()
     {
         // vignetteが存在し、かつ表示が無効な場合のみ実行
-        if (vignette != null && !canShowWarningUi)
+        if (vignette != null && !canShowWarningUI)
         {
             vignette.intensity.value = 0f;
             vignette.smoothness.value = minValue;

@@ -145,7 +145,7 @@ public class PlayerInfo : ScriptableObject
     /// </summary>
     public void InitializePlayerInfo()
     {
-        hp = 100f;
+        hp = 100f; //マジックナンバー。変数化してください。変数がある方が拡張しやすいし。
         purchasedSpells.Clear();
         nowSubSpell = "";
         keyCount = 0;
