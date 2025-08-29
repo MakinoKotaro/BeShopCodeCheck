@@ -6,7 +6,7 @@ using DG.Tweening;
 /// <summary>
 /// 氷の魔法の挙動を制御するクラス
 /// </summary>
-public class IceMagic : MagicBase
+public class Initialize : MagicBase
 {
     #region 変数宣言
 
@@ -30,16 +30,16 @@ public class IceMagic : MagicBase
     private GameObject currentSpell;                             // 現在の魔法インスタンス
 
     [SerializeField] private GameObject particleManagerObj;      // パーティクルマネージャ
-    private GameObject sFXManagerObj;                            // SFXマネージャ
+    private GameObject sfxManagerObj;                            // SFXマネージャ
 
     #endregion
 
     #region コンストラクタ
 
     /// <summary>
-    /// IceMagicの初期化
+    /// Initializeの初期化
     /// </summary>
-    public IceMagic()
+    public Initialize()
     {
         ManaCost = 5;
         MagicDamage = 5;
@@ -52,8 +52,9 @@ public class IceMagic : MagicBase
     private void Start()
     {
         playerController = player.GetComponent<PlayerController>();
-        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0).normalized;
-        sFXManagerObj = GameObject.FindWithTag("SFXManager");
+        screenCenter = GetScreenCenter();
+        sfxManagerObj = GameObject.FindWithTag("SFXManager");
+         //FindObjectOfType<○○.cs>();で取得してください
     }
 
     private void Update()
@@ -98,7 +99,7 @@ public class IceMagic : MagicBase
 
         currentSpell = Instantiate(spell.SpellPrefab, castPoint.position, Quaternion.identity);
 
-        SFXManager sFXManager = sFXManagerObj.GetComponent<SFXManager>();
+        SFXManager sFXManager = sfxManagerObj.GetComponent<SFXManager>();
         sFXManager.SetShotSound();
     }
 
@@ -114,7 +115,15 @@ public class IceMagic : MagicBase
         Destroy(currentSpell);
     }
 
+    private Vector3 GetScreenCenter()
+    {
+        // 画面中央の座標を取得するために幅と高さを半分にする
+        return new Vector3(Screen.width / 2f, Screen.height / 2f, 0).normalized;
+    }
+    #endregion
 
+
+    #region 衝突処理
     /// <summary>
     /// 敵と衝突すると凍らせる処理を呼ぶ
     /// </summary>

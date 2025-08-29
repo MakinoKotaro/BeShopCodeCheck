@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 風属性の魔法。プレイヤーを浮遊させる効果を持つ。
 /// </summary>
-public class WindMagic : MagicBase
+public class Initialize : MagicBase
 {
     #region 変数宣言
 
@@ -18,7 +18,7 @@ public class WindMagic : MagicBase
 
     private GameObject player;                                  // プレイヤー参照用
     private PlayerController playerController;                  // プレイヤーのコントローラー
-    private GameObject sFXManagerObj;                           // 効果音再生用オブジェクト
+    private GameObject sfxManagerObj;                           // 効果音再生用オブジェクト
     private GameObject castPoint;                               // 魔法の発射位置
 
     private Vector3 screenCenter;                               // 画面中央（未使用）
@@ -26,23 +26,26 @@ public class WindMagic : MagicBase
 
     #endregion
 
-    #region コンストラクタ
 
-    public WindMagic()
+    public Initialize()
     {
         ManaCost = 0;
         MagicDamage = 2.0f;
     }
-
-    #endregion
 
     #region Unityイベント
 
     private void Start()
     {
         player = GameObject.FindWithTag("Player");
+           //FindObjectOfType<○○.cs>();で取得してください
+
         playerController = player.GetComponent<PlayerController>();
-        sFXManagerObj = GameObject.FindWithTag("SFXManager");
+
+        sfxManagerObj = GameObject.FindWithTag("SFXManager");
+           //FindObjectOfType<○○.cs>();で取得してください
+
+
     }
 
     #endregion
@@ -67,7 +70,7 @@ public class WindMagic : MagicBase
 
 
         // SE再生
-        SFXManager sFXManager = sFXManagerObj.GetComponent<SFXManager>();
+        SFXManager sFXManager = sfxManagerObj.GetComponent<SFXManager>();
         sFXManager.SetWindMagicSound();
     }
 
@@ -101,7 +104,7 @@ public class WindMagic : MagicBase
 
 
             // SE再生
-            SFXManager sFXManager = sFXManagerObj.GetComponent<SFXManager>();
+            SFXManager sFXManager = sfxManagerObj.GetComponent<SFXManager>();
             sFXManager.SetFloatSound();
         }
     }

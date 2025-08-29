@@ -18,6 +18,7 @@ public class HpBarManager : MonoBehaviour
     private PlayerParameter playerParameter;             // プレイヤーの状態を保持するクラス
 
     private float nowFillAmount = 1f;                    // 現在のHP割合
+    
     private static readonly Color poisonedColor = Color.blue; // 毒状態時の色
     private static readonly Color normalColor = Color.red;    // 通常時の色
 

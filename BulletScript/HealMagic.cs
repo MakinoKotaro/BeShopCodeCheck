@@ -25,7 +25,7 @@ public class HealMagic : MagicBase
     private Vector3 bulletDirection;                       // 弾の方向（未使用）
 
     [SerializeField] private GameObject particleManagerObj; // パーティクル管理オブジェクト
-    private GameObject sFXManagerObj;                      // SFXマネージャ取得用
+    private GameObject sfxManagerObj;                      // SFXマネージャ取得用
 
     #endregion
 
@@ -34,7 +34,7 @@ public class HealMagic : MagicBase
     /// <summary>
     /// HealMagicの初期化
     /// </summary>
-    public HealMagic()
+    public void Initialize()
     {
         ManaCost = 0;
         MagicDamage = 2.0f;
@@ -47,7 +47,9 @@ public class HealMagic : MagicBase
     private void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // プレイヤーコントローラ取得
-        sFXManagerObj = GameObject.FindWithTag("SFXManager");       // SFXマネージャ取得
+        sfxManagerObj = GameObject.FindWithTag("SFXManager");       // SFXマネージャ取得
+        //sfxManagerObjにSFXManager.csがついているかな？何か.csファイルがついているなら
+        //FindObjectOfType<○○.cs>();で取得してください
     }
 
     #endregion
@@ -79,7 +81,7 @@ public class HealMagic : MagicBase
         playerParameter.PlayerHeal(MagicDamage);
 
         // ヒール効果音を再生
-        SFXManager sFXManager = sFXManagerObj.GetComponent<SFXManager>();
+        SFXManager sFXManager = sfxManagerObj.GetComponent<SFXManager>();
         sFXManager.SetHealSound();
     }
 

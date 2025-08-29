@@ -6,7 +6,7 @@ using DG.Tweening;
 /// <summary>
 /// 通常攻撃のスクリプト
 /// </summary>
-public class NormalAttack : MagicBase
+public class Initialize : MagicBase
 {
     #region 変数宣言
 
@@ -20,7 +20,7 @@ public class NormalAttack : MagicBase
     [SerializeField] private GameObject particleManagerObj;      // パーティクル管理オブジェクト
 
     private PlayerController playerController;                   // プレイヤーのコントローラー
-    private GameObject sFXManagerObj;                            // SE管理オブジェクト
+    private GameObject sfxManagerObj;                            // SE管理オブジェクト
 
     private List<GameObject> activeSpells = new();               // 発動中の魔法リスト
     private GameObject currentSpell;                             // 現在発射中の魔法
@@ -36,7 +36,7 @@ public class NormalAttack : MagicBase
     /// <summary>
     /// 初期値設定
     /// </summary>
-    public NormalAttack()
+    public Initialize()
     {
         ManaCost = 5;
         MagicDamage = 5;
@@ -49,8 +49,9 @@ public class NormalAttack : MagicBase
     private void Start()
     {
         playerController = player.GetComponent<PlayerController>(); // PlayerController取得
-        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0).normalized; // 中心を取得
-        sFXManagerObj = GameObject.FindWithTag("SFXManager");       // SFXマネージャ取得
+        screenCenter = GetScreenCenter();
+        sfxManagerObj = GameObject.FindWithTag("SFXManager");       // SFXマネージャ取得
+        
     }
 
     #endregion
@@ -97,7 +98,7 @@ public class NormalAttack : MagicBase
         currentSpell = Instantiate(spell.SpellPrefab, castPoint.position, Quaternion.identity);
 
         // SE再生
-        SFXManager sFXManager = sFXManagerObj.GetComponent<SFXManager>();
+        SFXManager sFXManager = sfxManagerObj.GetComponent<SFXManager>();
         sFXManager.SetShotSound();
     }
 
@@ -111,6 +112,12 @@ public class NormalAttack : MagicBase
     private void DestroySpell()
     {
         Destroy(currentSpell);
+    }
+
+     private Vector3 GetScreenCenter()
+    {
+        // 画面中央の座標を取得するために幅と高さを半分にする
+        return new Vector3(Screen.width / 2f, Screen.height / 2f, 0).normalized;
     }
 
     #endregion
