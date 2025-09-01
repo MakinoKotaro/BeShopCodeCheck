@@ -72,7 +72,7 @@ public class PlayerAnimationScript : MonoBehaviour
         animator.speed = nowAnimation == "Dodge" ? originalAnimationSpeed : fastAnimationSpeed;
 
         // Dodgeアニメーション再生中かどうかを判定（第2レイヤー）
-        AnimatorStateInfo layer2 = animator.GetCurrentAnimatorStateInfo(2);
+        AnimatorStateInfo layer2 = animator.GetCurrentAnimatorStateInfo(2); //マジックナンバーです。変数化してください。
         isPlayingDodgeAnimation = layer2.length > 0 && layer2.normalizedTime < 1f;
     }
 
